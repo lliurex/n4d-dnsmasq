@@ -1,0 +1,3 @@
+{% if HOSTNAME|lower()!= "server" %}cname=server.{{ INTERNAL_DOMAIN }},{{ HOSTNAME }}.{{ INTERNAL_DOMAIN }}{% endif %}
+{% for name in SRV_ALIAS %}{% if name != "server" %}{% if name != HOSTNAME %}cname={{ name }}.{{ INTERNAL_DOMAIN }},{{ HOSTNAME }}.{{ INTERNAL_DOMAIN }}{% endif %}{% endif %}
+{% endfor %}

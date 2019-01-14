@@ -1,0 +1,3 @@
+{% for extradns in DNS_EXTERNAL %}server={{ extradns }}
+{% endfor %}
+

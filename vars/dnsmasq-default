@@ -1,0 +1,120 @@
+{
+
+	"INTERNAL_DOMAIN": { 
+		"function": "lliurex.variables.internal_domain.init",
+		"packages": [
+			"n4d-dnsmasq"
+		],
+		"description": "set the name of the internal domain", 
+		"value": null
+	},
+	"SRV_IP": {
+		"packages": [
+			"n4d-dnsmasq"
+		]
+	},
+	"SRV_NAME": {
+		"function": "lliurex.variables.srv_name.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		], 
+		"description": "Names of lliurex server to be resolved", 
+		"value": null
+	},
+	"SRV_ALIAS": {
+		"function": "lliurex.variables.srv_alias.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		], 
+		"description": "List of names for the server", 
+		"value": null
+	},
+	"INTERNAL_NETWORK": {
+		"packages": [
+			"n4d-dnsmasq"
+		]
+	},
+	"INTERNAL_MASK": {
+		"packages": [
+			"n4d-dnsmasq"
+		]
+	},
+	"INTERNAL_INTERFACE": {
+		"packages": [
+			"n4d-dnsmasq"
+		]
+	},
+	"DNS_HOSTNAME_PREFIX": {
+		"function": "lliurex.variables.dns_hostname_prefix.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		], 
+		"description": "prefix of the name assigned to registrered clients", 
+		"value": null
+	},
+	"DNS_UNREG_HOSTNAME_PREFIX": {
+		"function": "lliurex.variables.dns_unreg_hostname_prefix.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		], 
+		"description": "prefix of the name assigned to unregistrered clients", 
+		"value": null
+	},
+	"DNS_EXTERNAL": {
+		"function": "lliurex.variables.dns_external.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		], 
+		"description": "external dns configuration", 
+		"value": null
+	},
+	"DHCP_ENABLE": {
+		"function": "lliurex.variables.dhcp_enable.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		],
+		"description": "Set if the dhcp server is active", 
+		"value": null
+	},
+	"DHCP_HOST_MAX": {
+		"function": "lliurex.variables.dhcp_host_max.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		],
+		"description": "Max number of dhcp clients", 
+		"value": null
+	},
+	"DHCP_LAST_IP": {
+		"function": "lliurex.variables.dhcp_last_ip.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		], 
+		"description": "Last Ip that will be assigned to clients", 
+		"value": null
+	},
+	"DHCP_LEASE_TIME": {
+		"function": "lliurex.variables.dhcp_lease_time.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		], 
+		"description": "time in hours of the IP lease", 
+		"value": null
+	},
+	"DHCP_FIRST_IP": {
+		"function": "lliurex.variables.dhcp_first_ip.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		], 
+		"description": "First IP that will be assigned to clients", 
+		"value": null
+	},
+	"DHCP_DENY_UNKNOWN_CLIENTS": {
+		"function": "lliurex.variables.dhcp_deny_unknown_clients.init", 
+		"packages": [
+			"n4d-dnsmasq"
+		], 
+		"description": "Select if we want to deny dhcp to unknown clients", 
+		"value": null
+	}
+}
+
