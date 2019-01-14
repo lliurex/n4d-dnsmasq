@@ -1,0 +1,44 @@
+#!/bin/sh
+set -e
+
+#!/bin/sh
+
+set -e
+
+# COMMON VARIABLES
+PACKAGE_NAME="n4d-dnsmasq"
+ORIGINAL_FILE="/lib/systemd/system/dnsmasq.service"
+DIVERT_FILE="$ORIGINAL_FILE.divert"
+LLIUREX_FILE="/usr/share/n4d-dnsmasq/dnsmasq.service"
+
+case $1 in
+        configure)
+
+		n4d-modules enable-plugin /etc/n4d/conf.d/DnsmasqManager || true
+
+		# Get the SRV_IP 
+		FILE_TO_WATCH="/etc/dnsmasq.conf"
+		eval $(n4d-vars getvalues SRV_IP)
+
+		if grep -Fq "address=/preseed/mirror/$SRV_IP" $FILE_TO_WATCH
+		then
+		      sed -i "s/address=\/preseed\/mirror\/$SRV_IP/address=\/preseed\/mirror\/proxy\/server\/$SRV_IP/g" $FILE_TO_WATCH
+		fi
+
+		if grep -Fq "address=/preseed/mirror/proxy/$SRV_IP" $FILE_TO_WATCH
+		then
+		      sed -i "s/address=\/preseed\/mirror\/proxy\/$SRV_IP/address=\/preseed\/mirror\/proxy\/server\/$SRV_IP/g" $FILE_TO_WATCH
+		fi
+
+
+               ;;
+        *)
+                echo "[DEBUG] Unknow action ..."
+                ;;
+
+esac
+
+#DEBHELPER#
+
+
+exit 0

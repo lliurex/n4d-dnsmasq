@@ -1,0 +1,15 @@
+Source: n4d-dnsmasq
+Section: admin
+Priority: optional
+Maintainer: Equipo LliureX <lliurex@gva.es>
+Uploaders: Angel Berlanas Vicente <lliurex_devel2@edu.gva.es>, Raul Rodrigo Segura <lliurex_devel3@edu.gva.es>, David Montalva Furio <montalva_dav@gva.es>, Alfons Lloret Sananton <lliurex_devel5@edu.gva.es>, Enrique Medina Gremaldos <lliurex_devel4@edu.gva.es>, Hector Garcia Huerta <lliurex_devel1@edu.gva.es>, Jose Carlos Garcia Monsalvez <garcia_josmon@gva.es>, Jaime Munyoz Fayos <munyoz_jaifay@gva.es>, Miguel Garcia Gomez <garcia_miggom@gva.es>
+Build-Depends: debhelper (>= 8.0.0), n4d-dev 
+Standards-Version: 3.8.4
+
+Package: n4d-dnsmasq
+Depends: ${misc:Depends}, python-jinja2, python-llxvars, dnsmasq, n4d-network, n4d-hostname
+Architecture: all
+Conflicts: 
+Description: LliureX dnsmasq server configuration
+ This package installs dnsmasq server configuration for
+ LliureX classrooms environment

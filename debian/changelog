@@ -1,0 +1,478 @@
+n4d-dnsmasq (1.61) bionic; urgency=medium
+
+  * First bionic release
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 26 Apr 2018 10:01:15 +0200
+
+n4d-dnsmasq (1.60) xenial; urgency=medium
+
+  * Add alias for admin-center when restoring a backup from <=15
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Tue, 20 Jun 2017 14:50:38 +0200
+
+n4d-dnsmasq (1.59) xenial; urgency=high
+
+  * moving calls from upstart to systemd 
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 25 Apr 2017 08:52:57 +0200
+
+n4d-dnsmasq (1.58) xenial; urgency=high
+
+  * dnsmasq systemd unit restarts on any error or otherwise with a 
+    start burst of 10 tries in an interval of 200 seconds. 
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 20 Apr 2017 10:12:25 +0200
+
+n4d-dnsmasq (1.57) xenial; urgency=high
+
+  * Added server to address list in dnsmasq conf file
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 21 Dec 2016 14:07:22 +0100
+
+n4d-dnsmasq (1.56+lliurex) xenial; urgency=medium
+
+  * Fixed service restart issue
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 21 Sep 2016 16:30:58 +0200
+
+n4d-dnsmasq (1.55) xenial; urgency=high
+
+  * Minor changes in dnsmasq systemd unit 
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 15 Sep 2016 08:41:40 +0200
+
+n4d-dnsmasq (1.54+lliurex2) xenial; urgency=medium
+
+  * Fix centralized services backup
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Mon, 27 Jun 2016 09:28:26 +0200
+
+n4d-dnsmasq (1.54+lliurex1) xenial; urgency=medium
+
+  * Minor bugfix for restore backups from Trusty
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Wed, 22 Jun 2016 16:33:25 +0200
+
+n4d-dnsmasq (1.54) xenial; urgency=medium
+
+  * Fix for restore backups from Trusty
+
+ -- Juanma Navarro Mañez <juanma1980@gmail.com>  Fri, 17 Jun 2016 14:01:03 +0200
+
+n4d-dnsmasq (1.53) xenial; urgency=high
+
+  * Added function to set internal domains
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 17 May 2016 12:28:00 +0200
+
+n4d-dnsmasq (1.52.4) xenial; urgency=high
+
+  * Fix bug
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 12 May 2016 13:47:50 +0200
+
+n4d-dnsmasq (1.52.3) xenial; urgency=high
+
+  * Add function to redirect web services to master server
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 09 May 2016 12:51:46 +0200
+
+n4d-dnsmasq (1.52.2) xenial; urgency=high
+
+  * Fixed prerm
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 07 Mar 2016 10:53:41 +0100
+
+n4d-dnsmasq (1.52.1) xenial; urgency=high
+
+  * Prerm strikes again
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 01 Mar 2016 08:46:26 +0100
+
+n4d-dnsmasq (1.52) xenial; urgency=high
+
+  * Fixing prerm
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 01 Mar 2016 08:41:14 +0100
+
+n4d-dnsmasq (1.51) xenial; urgency=high
+
+  * Fixing postinst
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 25 Feb 2016 08:37:52 +0100
+
+n4d-dnsmasq (1.50) xenial; urgency=high
+
+  * Adding dnsmasq,service diversion to ensure net interfaces are ready
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 18 Feb 2016 12:23:18 +0100
+
+n4d-dnsmasq (1.49) xenial; urgency=high
+
+  * first xenial release
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 02 Feb 2016 13:27:46 +0100
+
+n4d-dnsmasq (1.48) trusty; urgency=high
+
+  * Added python-minimal as build depends
+
+ -- Alfons Lloret Sananton <turix13@gmail.com>  Tue, 30 Sep 2014 17:00:45 +0200
+
+n4d-dnsmasq (1.47) trusty; urgency=high
+
+  * New releases for LliureX 15.06 
+
+ -- Alfons Lloret Sananton <turix13@gmail.com>  Tue, 30 Sep 2014 14:09:28 +0200
+
+n4d-dnsmasq (1.46) precise; urgency=high
+
+  * Fix dnsmasq conf
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 31 Oct 2013 11:14:40 +0100
+
+n4d-dnsmasq (1.45) precise; urgency=high
+
+  * update priority
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 31 Oct 2013 11:05:20 +0100
+
+n4d-dnsmasq (1.44) precise; urgency=low
+
+  * Added server resolution to netinstall
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 31 Oct 2013 10:59:09 +0100
+
+n4d-dnsmasq (1.43) precise; urgency=low
+
+  * UNRELEASED
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 30 Oct 2013 11:40:46 +0100
+
+n4d-dnsmasq (1.42) precise; urgency=high
+
+  * Fixing cname-server template
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 30 Oct 2013 11:37:20 +0100
+
+n4d-dnsmasq (1.41) precise; urgency=low
+
+  * Added proxy resolution to dnsmasq.conf 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Wed, 30 Oct 2013 09:59:45 +0100
+
+n4d-dnsmasq (1.40) precise; urgency=low
+
+  * Added options to netinstall 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 19 Jul 2013 09:49:50 +0200
+
+n4d-dnsmasq (1.39) precise; urgency=low
+
+  * Unreleased
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 26 Jun 2013 14:20:33 +0200
+
+n4d-dnsmasq (1.38) precise; urgency=high
+
+  * Fixed bug with dict not correctly formed
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 26 Jun 2013 14:19:04 +0200
+
+n4d-dnsmasq (1.37) precise; urgency=high
+
+  * Fixed return None on configure_service
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 26 Jun 2013 09:31:46 +0200
+
+n4d-dnsmasq (1.36) precise; urgency=high
+
+  * Fixed missing ':'
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 26 Jun 2013 09:20:55 +0200
+
+n4d-dnsmasq (1.35) precise; urgency=low
+
+  * Fixed set external dns to always set the dns to the new values
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 26 Jun 2013 09:16:08 +0200
+
+n4d-dnsmasq (1.34) precise; urgency=low
+
+  * Fixed server host name 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 18 Jun 2013 17:33:14 +0200
+
+n4d-dnsmasq (1.33) precise; urgency=low
+
+  * Fixed Changelog 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 17 Jun 2013 23:00:57 +0200
+
+n4d-dnsmasq (1.32) precise; urgency=low
+
+  * Changed conf files to create alias to hostname 
+
+ -- david <montalva_dav@gva.es>  Mon, 17 Jun 2013 22:32:49 +0200
+
+n4d-dnsmasq (1.31) precise; urgency=low
+
+  * Register machine works now
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 11 Jun 2013 21:49:15 +0200
+
+n4d-dnsmasq (1.30) precise; urgency=low
+
+  * Fixed cname template 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 07 Jun 2013 13:03:53 +0200
+
+n4d-dnsmasq (1.29) precise; urgency=low
+
+  * Force init vars on load exports 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Tue, 28 May 2013 10:04:28 +0200
+
+n4d-dnsmasq (1.28) precise; urgency=low
+
+  * Changed External_dns type to list 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 27 May 2013 14:56:09 +0200
+
+n4d-dnsmasq (1.27) precise; urgency=low
+
+  * Added automanaged config
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 23 May 2013 13:32:03 +0200
+
+n4d-dnsmasq (1.26) precise; urgency=low
+
+  * Set default DNS to localhost 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 20 May 2013 11:27:25 +0200
+
+n4d-dnsmasq (1.25) precise; urgency=low
+
+  * fixed version 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 17 May 2013 10:32:51 +0200
+
+n4d-dnsmasq (1.24ubuntu1) precise; urgency=low
+
+  * Cahnged resolv.conf 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 17 May 2013 10:28:58 +0200
+
+n4d-dnsmasq (1.24) precise; urgency=low
+
+  * Added resolv.conf configuration 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 16 May 2013 14:01:19 +0200
+
+n4d-dnsmasq (1.23) precise; urgency=low
+
+  * Fix bug with number default
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 13 May 2013 14:59:13 +0200
+
+n4d-dnsmasq (1.22) precise; urgency=low
+
+  * Added functions to register machine
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 13 May 2013 13:47:40 +0200
+
+n4d-dnsmasq (1.21) precise; urgency=low
+
+  * Fixed  cname template
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 10 May 2013 12:55:56 +0200
+
+n4d-dnsmasq (1.20) precise; urgency=low
+
+  * fixed error when the computer is named "server" 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 10 May 2013 10:07:33 +0200
+
+n4d-dnsmasq (1.19) precise; urgency=low
+
+  * Removed SRV_NAME and use 'server' as default 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Tue, 07 May 2013 13:06:58 +0200
+
+n4d-dnsmasq (1.18) precise; urgency=low
+
+  * Fixed errors 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Tue, 07 May 2013 12:03:30 +0200
+
+n4d-dnsmasq (1.17) precise; urgency=low
+
+  * Fixed errors 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 06 May 2013 14:57:28 +0200
+
+n4d-dnsmasq (1.16) precise; urgency=low
+
+  * Added SRV_ALIAS in vars file 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 06 May 2013 12:50:41 +0200
+
+n4d-dnsmasq (1.15) precise; urgency=low
+
+  * Fixed changelog
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 06 May 2013 11:44:11 +0200
+
+n4d-dnsmasq (1.14ubuntu1) precise; urgency=low
+
+  * Added add/remove alias function 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 06 May 2013 11:42:45 +0200
+
+n4d-dnsmasq (1.14) precise; urgency=low
+
+  * Fixed some bugs 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Tue, 23 Apr 2013 09:09:50 +0200
+
+n4d-dnsmasq (1.13) precise; urgency=low
+
+  * Added configure_service to n4d conf.d
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 22 Apr 2013 14:01:39 +0200
+
+n4d-dnsmasq (1.12) precise; urgency=low
+
+  * Added configure_service(srv_name,domain) function
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 22 Apr 2013 13:22:04 +0200
+
+n4d-dnsmasq (1.11) precise; urgency=low
+
+  * Added set_internal_domain function 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 22 Apr 2013 12:02:13 +0200
+
+n4d-dnsmasq (1.10) precise; urgency=low
+
+  * Fixed errors in templates 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Mon, 22 Apr 2013 11:00:28 +0200
+
+n4d-dnsmasq (1.9) precise; urgency=low
+
+  * Fixed changelog 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 19 Apr 2013 23:15:24 +0200
+
+n4d-dnsmasq (1.8) precise; urgency=low
+
+  * Fixed vars file
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 19 Apr 2013 23:08:59 +0200
+
+n4d-dnsmasq (1.7) precise; urgency=low
+
+  * Added INTERNAL_DOMAIN var to vars file
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 19 Apr 2013 13:01:38 +0200
+
+n4d-dnsmasq (1.6) precise; urgency=low
+
+  * Fixed errors
+  * Added INTERNAL_DOMAIN initizalitation
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 19 Apr 2013 12:31:49 +0200
+
+n4d-dnsmasq (1.5) precise; urgency=low
+
+  * Added set_srv_name function
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Fri, 19 Apr 2013 09:49:30 +0200
+
+n4d-dnsmasq (1.4) precise; urgency=low
+
+  * Set anonyous permission to has_name function
+  * Set adm,admins permission to set_dns_external function
+  * Set default dns external on load_exports function
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 18 Apr 2013 13:02:25 +0200
+
+n4d-dnsmasq (1.3) precise; urgency=low
+
+  * added server resolve name 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 18 Apr 2013 11:30:47 +0200
+
+n4d-dnsmasq (1.2) precise; urgency=low
+
+  * Added dir structure 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 18 Apr 2013 09:10:08 +0200
+
+n4d-dnsmasq (1.1) precise; urgency=low
+
+  * Added dns features 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Wed, 17 Apr 2013 14:41:50 +0200
+
+n4d-dnsmasq (1.0) precise; urgency=low
+
+  * Added n4d-network depencency
+  * Changed template move function
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Tue, 16 Apr 2013 12:48:13 +0200
+
+n4d-dnsmasq (0.9) precise; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 28 Feb 2013 14:06:59 +0100
+
+n4d-dnsmasq (0.8) precise; urgency=low
+
+  * Dummy upgrade
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Wed, 27 Feb 2013 12:48:01 +0100
+
+n4d-dnsmasq (0.7) precise; urgency=low
+
+  * Update to fix postinst and preinst
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Tue, 26 Feb 2013 12:58:56 +0100
+
+n4d-dnsmasq (0.6) precise; urgency=low
+
+  * Fix bugs with config and plugin
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Mon, 25 Feb 2013 09:32:40 +0100
+
+n4d-dnsmasq (0.5) precise; urgency=low
+
+  * FIxed var declaration 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 07 Feb 2013 14:52:00 +0100
+
+n4d-dnsmasq (0.4) precise; urgency=low
+
+  * Added internal domain variable 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 07 Feb 2013 14:40:43 +0100
+
+n4d-dnsmasq (0.3) precise; urgency=low
+
+  * Adding variables
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 07 Feb 2013 14:25:37 +0100
+
+n4d-dnsmasq (0.2) precise; urgency=low
+
+  * Fixed 
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Thu, 07 Feb 2013 13:23:24 +0100
+
+n4d-dnsmasq (0.1) precise; urgency=low
+
+  * Adding n4d capabilities
+
+ -- David Montalva Furio <montalva_dav@gva.es>  Tue, 05 Feb 2013 14:48:03 +0100
