@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.62) bionic; urgency=medium
+
+  * Adding sudo group
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Thu, 14 Feb 2019 10:49:24 +0100
+
 n4d-dnsmasq (1.61) bionic; urgency=medium
 
   * First bionic release
