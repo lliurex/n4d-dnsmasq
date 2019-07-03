@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.64) bionic; urgency=medium
+
+  * Adding lliurex-guard conf in backup
+
+ -- Juan Ramon Pelegrina <juapesai@hotmail.com>  Wed, 03 Jul 2019 12:21:01 +0200
+
 n4d-dnsmasq (1.63) bionic; urgency=high
 
   * Adding missing dirs
