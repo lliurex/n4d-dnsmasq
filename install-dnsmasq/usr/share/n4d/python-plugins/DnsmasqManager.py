@@ -20,7 +20,7 @@ class Dnsmasq:
 		self.locktocken = "/tmp/lockmacregister"
 		self.leases = "/var/lib/misc/dnsmasq.leases"
 		self.backup_files=["/etc/dnsmasq.conf"]
-		self.backup_dirs=[self.dynamicconfpath,"/etc/dnsmasq.d/"]
+		self.backup_dirs=[self.dynamicconfpath,"/etc/dnsmasq.d/","/etc/lliurex-guard/"]
 		
 	#def init
 	
@@ -118,9 +118,10 @@ class Dnsmasq:
 									if cnameFile in serviceStr:
 										self.restore_as_centralized(cnameFile,configDir,configTmpDir)
 										break
-				cmd="cp -r " + tmp_path +"/* "  + d
-				os.system(cmd)
-				#Add alias for admin-center if backup version<=15
+						else:				
+							cmd="cp -r " + tmp_path +"/* "  + d
+							os.system(cmd)
+							#Add alias for admin-center if backup version<=15
 				if majorBackupVersion<=15:
 					self.add_alias("admin-center")
 				os.system("systemctl restart dnsmasq")
