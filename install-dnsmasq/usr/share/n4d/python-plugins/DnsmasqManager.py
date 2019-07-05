@@ -21,6 +21,10 @@ class Dnsmasq:
 		self.leases = "/var/lib/misc/dnsmasq.leases"
 		self.backup_files=["/etc/dnsmasq.conf"]
 		self.backup_dirs=[self.dynamicconfpath,"/etc/dnsmasq.d/","/etc/lliurex-guard/"]
+		self.blacklist_path="/etc/lliurex-guard/blacklist"
+		self.blacklist_d_path="/etc/lliurex-guard/blacklist.d"
+		self.whitelist_path="/etc/lliurex-guard/whitelist"
+		self.whitelist_d_path="/etc/lliurex-guard/whitelist.d"
 		
 	#def init
 	
@@ -118,7 +122,21 @@ class Dnsmasq:
 									if cnameFile in serviceStr:
 										self.restore_as_centralized(cnameFile,configDir,configTmpDir)
 										break
-						else:				
+						else:
+							if d =="/etc/lliurex-guard/":
+								if os.path.exists(self.blacklist_path):
+									cmd="rm -f "+ self.blacklist_path+"/*"
+									os.system(cmd)
+								if os.path.exists(self.blacklist_d_path):
+									cmd="rm -f "+ self.blacklist_d_path+"/*"
+									os.system(cmd)
+								if os.path.exists(self.whitelist_path):
+									cmd="rm -f "+ self.whitelist_path+"/*"
+									os.system(cmd)
+								if os.path.exists(self.whitelist_d_path):
+									cmd="rm -f "+ self.whitelist_d_path+"/*"
+									os.system(cmd)	
+							
 							cmd="cp -r " + tmp_path +"/* "  + d
 							os.system(cmd)
 							#Add alias for admin-center if backup version<=15
