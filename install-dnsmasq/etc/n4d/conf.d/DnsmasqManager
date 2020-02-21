@@ -20,3 +20,4 @@ remove_alias=sudo,admins
 set_dns_master_services=sudo,admins
 set_internal_dns_entry=sudo,admins
 set_external_dns_entry=sudo,admins
+add_node_center_model=sudo, admins
