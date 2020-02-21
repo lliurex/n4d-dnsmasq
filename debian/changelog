@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.66) bionic; urgency=medium
+
+  * Add dnszone feature.
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 21 Feb 2020 14:47:35 +0100
+
 n4d-dnsmasq (1.65) bionic; urgency=medium
 
   * Fixed restore of lliurex-guard files
