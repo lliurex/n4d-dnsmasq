@@ -25,7 +25,7 @@ class Dnsmasq:
 		self.blacklist_d_path="/etc/lliurex-guard/blacklist.d"
 		self.whitelist_path="/etc/lliurex-guard/whitelist"
 		self.whitelist_d_path="/etc/lliurex-guard/whitelist.d"
-		
+		self.extradnspath = '/var/lib/dnsmasq/config/extra-dns'
 	#def init
 	
 	def startup(self,options):
@@ -162,33 +162,40 @@ class Dnsmasq:
 		pass
 	#def has_name
 
+	def add_node_center_model(self, hostname, ip ):
+
+		internal_domain = object['VariablesManager'].get_variable('','VariablesManager','INTERNAL_DOMAIN')
+		with open(self.path_nodes_center_model, 'r') as fd:
+			content = [ line for line in fd.readlines() if not line.strip().endswith(ip) ]
+		if hostname == '':
+			servername = internal_domain
+		else:
+			if internal_domain is not None
+		hostname = hostname + '.' + internal_domain if internal_domain is not None else hostname
+		content.append('server=/{server}/{ip}'.format(ip=ip,server=servername))
+		
+		with open(self.path_nodes_center_model, 'w') as fd:
+			fd.writelines(content)
+
+		return {'status': True, 'msg': 'Ok'}
+	#def add_node_replication
+
 	def set_dns_external(self,dnsexternal):
 		list_variables = {}
-		#Get template
 		template_extradns = self.tpl_env.get_template("extra-dns")
-		#Inicialize DNS_EXTERNAL
+
 		list_variables['DNS_EXTERNAL'] = objects['VariablesManager'].get_variable('DNS_EXTERNAL')
-		#If variable DNS_EXTERNAL is not defined calculate it with args values
 		status,list_variables['DNS_EXTERNAL'] = objects['VariablesManager'].init_variable('DNS_EXTERNAL',{'DNS':dnsexternal})	
-		#Encode vars to UTF-8
-		string_template = template_extradns.render(list_variables).encode('UTF-8')
-		#Open template file
-		fd, tmpfilepath = tempfile.mkstemp()
-		new_export_file = open(tmpfilepath,'w')
-		new_export_file.write(string_template)
-		new_export_file.close()
-		os.close(fd)
-		#Write template values
-		#shutil.move(tmpfilepath,'/etc/dnsmasq.conf')
-		n4d_mv(tmpfilepath,'/var/lib/dnsmasq/config/extra-dns',True,'root','root','0644',False )
+		with tempfile.NamedTemporaryFile('w',delete=False) as new_export_file:
+			new_export_file.write( template_extradns.render(list_variables).encode('UTF-8') )
+			tmpfilepath = new_export_file.name 
+		n4d_mv(tmpfilepath, self.extradnspath, True, 'root', 'root', '0644', False )
 		return {'status':True,'msg':'Set dns external succesfully'}
 	#def set_dns_external
 	
 	def configure_service(self,domain):
 		list_variables = {}
-		#status,list_variables['SRV_NAME'] = objects['VariablesManager'].init_variable('SRV_NAME',{'NAME':srv_name})
 		status,list_variables['INTERNAL_DOMAIN'] = objects['VariablesManager'].init_variable('INTERNAL_DOMAIN',{'DOMAIN':domain})
-		#self.set_srv_name(srv_name)
 		self.set_internal_domain(domain)
 		self.load_exports()
 		return {'status':True,'msg':'SUCCESS'}			
@@ -315,165 +322,56 @@ class Dnsmasq:
 		#Set INTERNAL_DOMAIN with args values
 		status,list_variables['INTERNAL_DOMAIN'] = objects['VariablesManager'].init_variable('INTERNAL_DOMAIN',{'DOMAIN':domain})
 		return {'status':True,'msg':'Set internal domain succesfully'}
-		
+
 	def load_exports(self):
 		#Get template
-		template = self.tpl_env.get_template("dnsmasq.conf")
+
+		template_list = []
+		template_list.append({'template': self.tpl_env.get_template("dnsmasq.conf") , 'path' : '/etc/dnsmasq.conf' })
+		template_list.append({'template': self.tpl_env.get_template("cname-server") , 'path' : '/var/lib/dnsmasq/config/cname-server' })
+		template_list.append({'template': self.tpl_env.get_template("server") , 'path' : '/var/lib/dnsmasq/hosts/server' })
+		template_list.append({'template': self.tpl_env.get_template("dhclient.conf") , 'path' : '/etc/dhcp/dhclient.conf' })
 		template_cname = self.tpl_env.get_template("cname-server")
 		template_server = self.tpl_env.get_template("server")
 		template_dhclientconf = self.tpl_env.get_template("dhclient.conf")
-		
-		list_variables = {}
 
-		###########################
-		#Getting VARS
-		###########################
+		query_variables = ['INTERNAL_INTERFACE','INTERNAL_NETWORK','INTERNAL_MASK','INTERNAL_DOMAIN','SRV_IP','HOSTNAME', 'INTERFACE_REPLICATION']
+		non_check_variables = ['INTERFACE_REPLICATION']
+		list_variables = object['VariablesManager'].get_variable_list('','VariablesManager',query_variables)
 
-		#Obtains INTERNAL_INTERFACE
-		list_variables['INTERNAL_INTERFACE'] = objects['VariablesManager'].get_variable('INTERNAL_INTERFACE')
-		#If INTERNAL_INTERFACE is not defined returns an error
-		if  list_variables['INTERNAL_INTERFACE'] == None:
-			return {'status':False,'msg':'Variable INTERNAL_INTERFACE not defined'}
+		# Check exists variables
+		for variable in query_variables:
+			if variable in non_check_variables:
+				continue
+			if not ( variable in list_variables and list_variables[variable] is not None )
+				return {'status': False, 'msg': 'Variable {variable} not define'.format(variable=variable) }
 
-		#Obtains INTERNAL_NETWORK
-		list_variables['INTERNAL_NETWORK'] = objects['VariablesManager'].get_variable('INTERNAL_NETWORK')
-		#If INTERNAL_NETWORK is not defined returns an error
-		if  list_variables['INTERNAL_NETWORK'] == None:
-			return {'status':False,'msg':'Variable INTERNAL_NETWORK not defined'}
+		if list_variables['INTERFACE_REPLICATION'] is not None:
+			result = objects['NetworkManager'].get_replication_network('','NetworkManager')
+			if result['status']:
+				list_variables['REPLICATION_NETWORK'] = result['msg']
 
-		#Obtains INTERNAL_MASK
-		list_variables['INTERNAL_MASK'] = objects['VariablesManager'].get_variable('INTERNAL_MASK')
-		#If INTERNAL_NETWORK is not defined returns an error
-		if  list_variables['INTERNAL_MASK'] == None:
-			return {'status':False,'msg':'Variable INTERNAL_MASK not defined'}
-	
-		#Inicialize INTERNAL_DOMAIN
-		list_variables['INTERNAL_DOMAIN'] = objects['VariablesManager'].get_variable('INTERNAL_DOMAIN')
-		#If INT_DOMAIN is not defined calculate it with args values
-		if  list_variables['INTERNAL_DOMAIN'] == None:
-			return {'status':False,'msg':'Variable INTERNAL_DOMAIN not defined'}
-			
-		#Obtains SRV_IP
-		list_variables['SRV_IP'] = objects['VariablesManager'].get_variable('SRV_IP')
-		#If variable SRV_IP is not defined returns an error
-		if  list_variables['SRV_IP'] == None:
-			return {'status':False,'msg':'Variable SRV_IP not defined'}
-		'''	
-		#Obtains SRV_NAME
-		list_variables['SRV_NAME'] = objects['VariablesManager'].get_variable('SRV_NAME')
-		#If variable SRV_IP is not defined returns an error
-		if  list_variables['SRV_NAME'] == None:
-			return {'status':False,'msg':'Variable SRV_NAME not defined'}
-		'''
-		#Obtains HOSTNAME
-		list_variables['HOSTNAME'] = objects['VariablesManager'].get_variable('HOSTNAME')
-		#If variable SRV_IP is not defined returns an error
-		if  list_variables['HOSTNAME'] == None:
-			return {'status':False,'msg':'Variable HOSTNAME not defined'}		
+		query_variables = {
+			'DHCP_ENABLE': {'ENABLE':'True'},
+			'DHCP_LEASE_TIME': {'LEASE_TIME':12},
+			'DHCP_DENY_UNKNOWN_CLIENTS': {'DENY_UNKNOWN':'no'},
+			'DHCP_HOST_MAX': {'HOST_MAX':80},
+			'DHCP_FIRST_IP': {'NETWORK':list_variables['INTERNAL_NETWORK'],'MASK':list_variables['INTERNAL_MASK']},
+			'DHCP_LAST_IP': {'NETWORK':list_variables['INTERNAL_NETWORK'],'MASK':list_variables['INTERNAL_MASK']},
+			'DNS_HOSTNAME_PREFIX': {'PREFIX':'llx-'},
+			'DNS_UNREG_HOSTNAME_PREFIX':{'PREFIX':'host-'}
+		}
 
-		############################
-		#Setting VARS
-		############################
-		
-		#Inicialize DHCP_ENABLE
-		#list_variables['DHCP_ENABLE'] = objects['VariablesManager'].get_variable('DHCP_ENABLE')
-		#If variable DHCP_ENABLE is not defined calculate it with args values
-		#if  list_variables['DHCP_ENABLE'] == None:
-		status,list_variables['DHCP_ENABLE'] = objects['VariablesManager'].init_variable('DHCP_ENABLE',{'ENABLE':'True'})
-		
-		#Inicialize DHCP_LEASE_TIME
-		#list_variables['DHCP_LEASE_TIME'] = objects['VariablesManager'].get_variable('DHCP_LEASE_TIME')
-		#If variable DHCP_LEASE_TIME is not defined calculate it with args values
-		#if  list_variables['DHCP_LEASE_TIME'] == None:
-		status,list_variables['DHCP_LEASE_TIME'] = objects['VariablesManager'].init_variable('DHCP_LEASE_TIME',{'LEASE_TIME':12})
-
-		#Inicialize DHCP_DENY_UNKNOWN_CLIENTS
-		#list_variables['DHCP_DENY_UNKNOWN_CLIENTS'] = objects['VariablesManager'].get_variable('DHCP_DENY_UNKNOWN_CLIENTS')
-		#If variable DHCP_DENY_UNKNOWN_CLIENTS is not defined calculate it with args values
-		#if  list_variables['DHCP_DENY_UNKNOWN_CLIENTS'] == None:
-		status,list_variables['DHCP_DENY_UNKNOWN_CLIENTS'] = objects['VariablesManager'].init_variable('DHCP_DENY_UNKNOWN_CLIENTS',{'DENY_UNKNOWN':'no'})
-
-		#Inicialize DHCP_HOST_MAX
-		#list_variables['DHCP_HOST_MAX'] = objects['VariablesManager'].get_variable('DHCP_HOST_MAX')
-		#If variable DHCP_HOST_MAX is not defined calculate it with args values
-		#if  list_variables['DHCP_HOST_MAX'] == None:
-		status,list_variables['DHCP_HOST_MAX'] = objects['VariablesManager'].init_variable('DHCP_HOST_MAX',{'HOST_MAX':80})
-
-		#Inicialize DHCP_FIRST_IP
-		#list_variables['DHCP_FIRST_IP'] = objects['VariablesManager'].get_variable('DHCP_FIRST_IP')
-		#If variable DHCP_FIRST_IP is not defined calculate it with args values
-		#if  list_variables['DHCP_FIRST_IP'] == None:
-		status,list_variables['DHCP_FIRST_IP'] = objects['VariablesManager'].init_variable('DHCP_FIRST_IP',{'NETWORK':list_variables['INTERNAL_NETWORK'],'MASK':list_variables['INTERNAL_MASK']})
-
-		#Inicialize DHCP_LAST_IP
-		#list_variables['DHCP_LAST_IP'] = objects['VariablesManager'].get_variable('DHCP_LAST_IP')
-		#If variable DHCP_LAST_IP is not defined calculate it with args values
-		#if  list_variables['DHCP_LAST_IP'] == None:
-		status,list_variables['DHCP_LAST_IP'] = objects['VariablesManager'].init_variable('DHCP_LAST_IP',{'NETWORK':list_variables['INTERNAL_NETWORK'],'MASK':list_variables['INTERNAL_MASK']})
-			
-		#Inicialize DNS_HOSTNAME_PREFIX
-		#list_variables['DNS_HOSTNAME_PREFIX'] = objects['VariablesManager'].get_variable('DNS_HOSTNAME_PREFIX')
-		#If variable DNS_HOSTNAME_PREFIX is not defined calculate it with args values
-		#if  list_variables['DNS_HOSTNAME_PREFIX'] == None:
-		status,list_variables['DNS_HOSTNAME_PREFIX'] = objects['VariablesManager'].init_variable('DNS_HOSTNAME_PREFIX',{'PREFIX':'llx-'})
-
-		#Inicialize DNS_UNREG_HOSTNAME_PREFIX
-		#list_variables['DNS_UNREG_HOSTNAME_PREFIX'] = objects['VariablesManager'].get_variable('DNS_UNREG_HOSTNAME_PREFIX')
-		#If variable DNS_UNREG_HOSTNAME_PREFIX is not defined calculate it with args values
-		#if  list_variables['DNS_UNREG_HOSTNAME_PREFIX'] == None:
-		status,list_variables['DNS_UNREG_HOSTNAME_PREFIX'] = objects['VariablesManager'].init_variable('DNS_UNREG_HOSTNAME_PREFIX',{'PREFIX':'host-'})
-	
-		#Inicialize SRV_ALIAS
-		#list_variables['SRV_ALIAS'] = objects['VariablesManager'].get_variable('SRV_ALIAS')
-		#If variable SRV_ALIAS is not defined calculate it with args values
-		#if  list_variables['SRV_ALIAS'] == None:
+		for variable in query_variables:
+			list_variables[variable] = object['VariablesManager'].init_variable(variable, query_variables[variable])
 		status,list_variables['SRV_ALIAS'] = objects['VariablesManager'].init_variable('SRV_ALIAS')
 	
 	
-		#Encode vars to UTF-8
-		string_template = template.render(list_variables).encode('UTF-8')
-		#Open template file
-		fd, tmpfilepath = tempfile.mkstemp()
-		new_export_file = open(tmpfilepath,'w')
-		new_export_file.write(string_template)
-		new_export_file.close()
-		os.close(fd)
-		#Write template values
-		#shutil.move(tmpfilepath,'/etc/dnsmasq.conf')
-		n4d_mv(tmpfilepath,'/etc/dnsmasq.conf',True,'root','root','0644',False )
-		
-		#Encode vars to UTF-8
-		string_template = template_cname.render(list_variables).encode('UTF-8')
-		#Open template file
-		fd, tmpfilepath = tempfile.mkstemp()
-		new_export_file = open(tmpfilepath,'w')
-		new_export_file.write(string_template)
-		new_export_file.close()
-		os.close(fd)
-		#Write template values
-		n4d_mv(tmpfilepath,'/var/lib/dnsmasq/config/cname-server',True,'root','root','0644',False )
-		
-		#Encode vars to UTF-8
-		string_template = template_server.render(list_variables).encode('UTF-8')
-		#Open template file
-		fd, tmpfilepath = tempfile.mkstemp()
-		new_export_file = open(tmpfilepath,'w')
-		new_export_file.write(string_template)
-		new_export_file.close()
-		os.close(fd)
-		#Write template values
-		n4d_mv(tmpfilepath,'/var/lib/dnsmasq/hosts/server',True,'root','root','0644',False )
-		
-		#Encode vars to UTF-8
-		string_template = template_dhclientconf.render(list_variables).encode('UTF-8')
-		#Open template file
-		fd, tmpfilepath = tempfile.mkstemp()
-		new_export_file = open(tmpfilepath,'w')
-		new_export_file.write(string_template)
-		new_export_file.close()
-		os.close(fd)
-		#Write template values
-		n4d_mv(tmpfilepath,'/etc/dhcp/dhclient.conf',True,'root','root','0644',False )
+		for template_info in template_list:
+			with tempfile.NamedTemporaryFile('w',delete=False) as new_export_file:
+				new_export_file.write( template_info['template'].render(list_variables).encode('UTF-8') )
+				tmpfilepath = new_export_file.name 
+			n4d_mv(tmpfilepath, template_info['path'], True, 'root', 'root', '0644', False )
 		
 		return {'status':True,'msg':'Service configured'}
 	#def load_exports
