@@ -166,8 +166,10 @@ class Dnsmasq:
 	def add_node_center_model(self, hostname, ip ):
 
 		internal_domain = objects['VariablesManager'].get_variable('INTERNAL_DOMAIN')
-		with open(self.path_nodes_center_model, 'r') as fd:
-			content = [ line for line in fd.readlines() if not line.strip().endswith(ip) ]
+		content = []
+		if os.path.exists(self.path_nodes_center_model):
+			with open(self.path_nodes_center_model, 'r') as fd:
+				content = [ line for line in fd.readlines() if not line.strip().endswith(ip) ]
 		if internal_domain is not None:
 			if hostname == '':
 				servername = internal_domain
