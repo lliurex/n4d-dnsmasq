@@ -164,7 +164,7 @@ class Dnsmasq:
 
 	def add_node_center_model(self, hostname, ip ):
 
-		internal_domain = object['VariablesManager'].get_variable('','VariablesManager','INTERNAL_DOMAIN')
+		internal_domain = objects['VariablesManager'].get_variable('','VariablesManager','INTERNAL_DOMAIN')
 		with open(self.path_nodes_center_model, 'r') as fd:
 			content = [ line for line in fd.readlines() if not line.strip().endswith(ip) ]
 		if internal_domain is not None:
@@ -339,7 +339,7 @@ class Dnsmasq:
 
 		query_variables = ['INTERNAL_INTERFACE','INTERNAL_NETWORK','INTERNAL_MASK','INTERNAL_DOMAIN','SRV_IP','HOSTNAME', 'INTERFACE_REPLICATION']
 		non_check_variables = ['INTERFACE_REPLICATION']
-		list_variables = object['VariablesManager'].get_variable_list('','VariablesManager',query_variables)
+		list_variables = objects['VariablesManager'].get_variable_list('','VariablesManager',query_variables)
 
 		# Check exists variables
 		for variable in query_variables:
@@ -365,7 +365,7 @@ class Dnsmasq:
 		}
 
 		for variable in query_variables:
-			list_variables[variable] = object['VariablesManager'].init_variable(variable, query_variables[variable])
+			list_variables[variable] = objects['VariablesManager'].init_variable(variable, query_variables[variable])
 		status,list_variables['SRV_ALIAS'] = objects['VariablesManager'].init_variable('SRV_ALIAS')
 	
 	
