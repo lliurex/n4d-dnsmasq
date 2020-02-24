@@ -26,6 +26,7 @@ class Dnsmasq:
 		self.whitelist_path="/etc/lliurex-guard/whitelist"
 		self.whitelist_d_path="/etc/lliurex-guard/whitelist.d"
 		self.extradnspath = '/var/lib/dnsmasq/config/extra-dns'
+		self.path_nodes_center_model = '/var/lib/dnsmasq/config/center_servers'
 	#def init
 	
 	def startup(self,options):
