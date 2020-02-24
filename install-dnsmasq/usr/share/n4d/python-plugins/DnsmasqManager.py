@@ -167,11 +167,13 @@ class Dnsmasq:
 		internal_domain = object['VariablesManager'].get_variable('','VariablesManager','INTERNAL_DOMAIN')
 		with open(self.path_nodes_center_model, 'r') as fd:
 			content = [ line for line in fd.readlines() if not line.strip().endswith(ip) ]
-		if hostname == '':
-			servername = internal_domain
-		else:
-			if internal_domain is not None
-		hostname = hostname + '.' + internal_domain if internal_domain is not None else hostname
+		if internal_domain is not None:
+			if hostname == '':
+				servername = internal_domain
+			else:
+				servername = hostname + '.' + internal_domain if internal_domain is not None else hostname
+		if servername is None:
+			return {'status':False, 'msg':'Internal Domain is not defined'}
 		content.append('server=/{server}/{ip}'.format(ip=ip,server=servername))
 		
 		with open(self.path_nodes_center_model, 'w') as fd:
