@@ -164,7 +164,7 @@ class Dnsmasq:
 
 	def add_node_center_model(self, hostname, ip ):
 
-		internal_domain = objects['VariablesManager'].get_variable('','VariablesManager','INTERNAL_DOMAIN')
+		internal_domain = objects['VariablesManager'].get_variable('INTERNAL_DOMAIN')
 		with open(self.path_nodes_center_model, 'r') as fd:
 			content = [ line for line in fd.readlines() if not line.strip().endswith(ip) ]
 		if internal_domain is not None:
@@ -198,8 +198,12 @@ class Dnsmasq:
 	def configure_service(self,domain):
 		list_variables = {}
 		status,list_variables['INTERNAL_DOMAIN'] = objects['VariablesManager'].init_variable('INTERNAL_DOMAIN',{'DOMAIN':domain})
-		self.set_internal_domain(domain)
-		self.load_exports()
+		result = self.set_internal_domain(domain)
+		if not result['status']:
+			return result
+		result = self.load_exports()
+		if not result['status']:
+			return result
 		return {'status':True,'msg':'SUCCESS'}			
 	#def  config_service
 	
@@ -339,7 +343,7 @@ class Dnsmasq:
 
 		query_variables = ['INTERNAL_INTERFACE','INTERNAL_NETWORK','INTERNAL_MASK','INTERNAL_DOMAIN','SRV_IP','HOSTNAME', 'INTERFACE_REPLICATION']
 		non_check_variables = ['INTERFACE_REPLICATION']
-		list_variables = objects['VariablesManager'].get_variable_list('','VariablesManager',query_variables)
+		list_variables = objects['VariablesManager'].get_variable_list(query_variables)
 
 		# Check exists variables
 		for variable in query_variables:
@@ -349,7 +353,7 @@ class Dnsmasq:
 				return {'status': False, 'msg': 'Variable {variable} not define'.format(variable=variable) }
 
 		if list_variables['INTERFACE_REPLICATION'] is not None:
-			result = objects['NetworkManager'].get_replication_network('','NetworkManager')
+			result = objects['NetworkManager'].get_replication_network()
 			if result['status']:
 				list_variables['REPLICATION_NETWORK'] = result['msg']
 
