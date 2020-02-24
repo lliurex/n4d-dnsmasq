@@ -345,7 +345,7 @@ class Dnsmasq:
 		for variable in query_variables:
 			if variable in non_check_variables:
 				continue
-			if not ( variable in list_variables and list_variables[variable] is not None )
+			if not ( variable in list_variables and list_variables[variable] is not None ):
 				return {'status': False, 'msg': 'Variable {variable} not define'.format(variable=variable) }
 
 		if list_variables['INTERFACE_REPLICATION'] is not None:
