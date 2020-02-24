@@ -372,7 +372,7 @@ class Dnsmasq:
 		}
 
 		for variable in query_variables:
-			list_variables[variable] = objects['VariablesManager'].init_variable(variable, query_variables[variable])
+			status,list_variables[variable] = objects['VariablesManager'].init_variable(variable, query_variables[variable])
 		status,list_variables['SRV_ALIAS'] = objects['VariablesManager'].init_variable('SRV_ALIAS')
 	
 	
