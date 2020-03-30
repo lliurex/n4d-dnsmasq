@@ -402,6 +402,7 @@ class Dnsmasq:
 			hostname = objects['VariablesManager'].get_variable('HOSTNAME')
 			f = open(self.dynamicconfpath+'config/'+name,'w')
 			f.write("cname="+name+"."+ internal +","+ hostname + "."+internal)
+			f.write("cname="+name+".lliurex" +","+ hostname + "."+internal)
 			f.close()
 			if os.path.exists(self.dynamicconfpath+'hosts/'+name):
 				os.remove(self.dynamicconfpath+'hosts/'+name)
