@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.67) bionic; urgency=medium
+
+  * method set_internal_dns adds domain lliurex to cname
+
+ -- Juanma1980 <juanma1980@gmail.com>  Mon, 30 Mar 2020 10:34:15 +0200
+
 n4d-dnsmasq (1.66) bionic; urgency=medium
 
   * Add dnszone feature.
