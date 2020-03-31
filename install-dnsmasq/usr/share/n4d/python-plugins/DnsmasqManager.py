@@ -399,10 +399,14 @@ class Dnsmasq:
 	def set_internal_dns_entry(self,name):
 		try:
 			internal = objects['VariablesManager'].get_variable('INTERNAL_DOMAIN')
+			main_domain = objects['VariablesManager'].get_variable('MAIN_DOMAIN')
+			if main_domain==None:
+				main_domain="lliurex"
 			hostname = objects['VariablesManager'].get_variable('HOSTNAME')
 			f = open(self.dynamicconfpath+'config/'+name,'w')
 			f.write("cname="+name+"."+ internal +","+ hostname + "."+internal)
-			f.write("cname="+name+".lliurex" +","+ hostname + "."+internal)
+			#cname for service.machine.main_domain
+			f.write("cname="+name+"."+hostname+"."+main_domain+","+ hostname + "."+internal)
 			f.close()
 			if os.path.exists(self.dynamicconfpath+'hosts/'+name):
 				os.remove(self.dynamicconfpath+'hosts/'+name)
