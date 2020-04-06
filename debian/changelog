@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.68) bionic; urgency=medium
+
+  * Add n4d variable MAIN_DOMAIN wich contains the main domain's nam
+
+ -- Juanma1980 <juanma1980@gmail.com>  Mon, 06 Apr 2020 09:09:58 +0200
+
 n4d-dnsmasq (1.67) bionic; urgency=medium
 
   * method set_internal_dns adds domain lliurex to cname
