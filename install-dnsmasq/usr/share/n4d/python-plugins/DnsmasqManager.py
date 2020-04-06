@@ -170,8 +170,15 @@ class Dnsmasq:
 		if hostname == '':
 			servername = internal_domain
 		else:
-			if internal_domain is not None
-		hostname = hostname + '.' + internal_domain if internal_domain is not None else hostname
+			##### --------->
+			#Check that this modif is right!!!!
+			#OLD CODE with syntax error:
+#			if internal_domain is not None
+#			hostname = hostname + '.' + internal_domain if internal_domain is not None else hostname
+			#New code with supossed fix:i
+			servername = hostname + '.' + internal_domain if internal_domain is not None else hostname
+			########## <---------
+
 		content.append('server=/{server}/{ip}'.format(ip=ip,server=servername))
 		
 		with open(self.path_nodes_center_model, 'w') as fd:
@@ -196,6 +203,7 @@ class Dnsmasq:
 	def configure_service(self,domain):
 		list_variables = {}
 		status,list_variables['INTERNAL_DOMAIN'] = objects['VariablesManager'].init_variable('INTERNAL_DOMAIN',{'DOMAIN':domain})
+		status,list_variables['MAIN_DOMAIN'] = objects['VariablesManager'].init_variable('MAIN_DOMAIN',{'DOMAIN':'lliurex'})
 		self.set_internal_domain(domain)
 		self.load_exports()
 		return {'status':True,'msg':'SUCCESS'}			
@@ -322,6 +330,17 @@ class Dnsmasq:
 		#Set INTERNAL_DOMAIN with args values
 		status,list_variables['INTERNAL_DOMAIN'] = objects['VariablesManager'].init_variable('INTERNAL_DOMAIN',{'DOMAIN':domain})
 		return {'status':True,'msg':'Set internal domain succesfully'}
+		
+	def set_main_domain(self,domain):
+		list_variables = {}
+		#Get HOSTNAME
+		list_variables['HOSTNAME'] = objects['VariablesManager'].get_variable('HOSTNAME')
+		#If variable MAIN_DOMAIN is not defined calculate it with args values
+		if  list_variables['HOSTNAME'] == None:
+			return {'status':False,'msg':'Variable HOSTNAME is not defined'}
+		#Set MAIN_DOMAIN with args values
+		status,list_variables['MAIN_DOMAIN'] = objects['VariablesManager'].init_variable('MAIN_DOMAIN',{'DOMAIN':domain})
+		return {'status':True,'msg':'Set main domain succesfully'}
 
 	def load_exports(self):
 		#Get template
@@ -343,7 +362,7 @@ class Dnsmasq:
 		for variable in query_variables:
 			if variable in non_check_variables:
 				continue
-			if not ( variable in list_variables and list_variables[variable] is not None )
+			if not ( variable in list_variables and list_variables[variable] is not None ):
 				return {'status': False, 'msg': 'Variable {variable} not define'.format(variable=variable) }
 
 		if list_variables['INTERFACE_REPLICATION'] is not None:
@@ -399,10 +418,14 @@ class Dnsmasq:
 	def set_internal_dns_entry(self,name):
 		try:
 			internal = objects['VariablesManager'].get_variable('INTERNAL_DOMAIN')
+			main_domain = objects['VariablesManager'].get_variable('MAIN_DOMAIN')
+			if main_domain==None:
+				main_domain="lliurex"
 			hostname = objects['VariablesManager'].get_variable('HOSTNAME')
 			f = open(self.dynamicconfpath+'config/'+name,'w')
-			f.write("cname="+name+"."+ internal +","+ hostname + "."+internal)
-			f.write("cname="+name+".lliurex" +","+ hostname + "."+internal)
+			f.write("cname="+name+"."+ internal +","+ hostname + "."+internal+"\n")
+			#cname for service.machine.main_domain
+			f.write("cname="+name+"."+hostname+"."+main_domain+","+ hostname + "."+internal)
 			f.close()
 			if os.path.exists(self.dynamicconfpath+'hosts/'+name):
 				os.remove(self.dynamicconfpath+'hosts/'+name)
