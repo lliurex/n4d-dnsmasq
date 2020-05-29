@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.68.1) bionic; urgency=medium
+
+  * fix dnszone
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Fri, 29 May 2020 15:18:24 +0200
+
 n4d-dnsmasq (1.68) bionic; urgency=medium
 
   * Add n4d variable MAIN_DOMAIN wich contains the main domain's nam
