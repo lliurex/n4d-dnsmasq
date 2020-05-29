@@ -177,6 +177,7 @@ class Dnsmasq:
 				servername = hostname + '.' + internal_domain if internal_domain is not None else hostname
 		if servername is None:
 			return {'status':False, 'msg':'Internal Domain is not defined'}
+
 		content.append('server=/{server}/{ip}'.format(ip=ip,server=servername))
 		
 		with open(self.path_nodes_center_model, 'w') as fd:
@@ -201,6 +202,7 @@ class Dnsmasq:
 	def configure_service(self,domain):
 		list_variables = {}
 		status,list_variables['INTERNAL_DOMAIN'] = objects['VariablesManager'].init_variable('INTERNAL_DOMAIN',{'DOMAIN':domain})
+		status,list_variables['MAIN_DOMAIN'] = objects['VariablesManager'].init_variable('MAIN_DOMAIN',{'DOMAIN':'lliurex'})
 		result = self.set_internal_domain(domain)
 		if not result['status']:
 			return result
@@ -331,6 +333,17 @@ class Dnsmasq:
 		#Set INTERNAL_DOMAIN with args values
 		status,list_variables['INTERNAL_DOMAIN'] = objects['VariablesManager'].init_variable('INTERNAL_DOMAIN',{'DOMAIN':domain})
 		return {'status':True,'msg':'Set internal domain succesfully'}
+		
+	def set_main_domain(self,domain):
+		list_variables = {}
+		#Get HOSTNAME
+		list_variables['HOSTNAME'] = objects['VariablesManager'].get_variable('HOSTNAME')
+		#If variable MAIN_DOMAIN is not defined calculate it with args values
+		if  list_variables['HOSTNAME'] == None:
+			return {'status':False,'msg':'Variable HOSTNAME is not defined'}
+		#Set MAIN_DOMAIN with args values
+		status,list_variables['MAIN_DOMAIN'] = objects['VariablesManager'].init_variable('MAIN_DOMAIN',{'DOMAIN':domain})
+		return {'status':True,'msg':'Set main domain succesfully'}
 
 	def load_exports(self):
 		#Get template
@@ -408,9 +421,14 @@ class Dnsmasq:
 	def set_internal_dns_entry(self,name):
 		try:
 			internal = objects['VariablesManager'].get_variable('INTERNAL_DOMAIN')
+			main_domain = objects['VariablesManager'].get_variable('MAIN_DOMAIN')
+			if main_domain==None:
+				main_domain="lliurex"
 			hostname = objects['VariablesManager'].get_variable('HOSTNAME')
 			f = open(self.dynamicconfpath+'config/'+name,'w')
-			f.write("cname="+name+"."+ internal +","+ hostname + "."+internal)
+			f.write("cname="+name+"."+ internal +","+ hostname + "."+internal+"\n")
+			#cname for service.machine.main_domain
+			f.write("cname="+name+"."+hostname+"."+main_domain+","+ hostname + "."+internal)
 			f.close()
 			if os.path.exists(self.dynamicconfpath+'hosts/'+name):
 				os.remove(self.dynamicconfpath+'hosts/'+name)
