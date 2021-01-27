@@ -1,0 +1,144 @@
+{
+	"SETUP": {
+		"type":"python",
+		"path":"DnsmasqManager.py",
+		"class":"DnsmasqManager"
+	},
+	"METHODS": {
+		"test":
+		{
+			"allowed_groups":[
+				"*",
+				"anonymous"
+			]
+		},
+		"backup":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"restore":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"restore_dhcpd":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"has_name":
+		{
+			"allowed_groups":[
+				"*",
+				"anonymous"
+			]
+		},
+		"set_dns_external":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"set_srv_name":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"set_internal_domain":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"configure_service":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"get_available_id_list":
+		{
+			"allowed_groups":[
+				"anonymous"
+			]
+		},
+		"remove_register":
+		{
+			"allowed_groups":[
+				"anonymous"
+			]
+		},
+		"register_machine":
+		{
+			"allowed_groups":[
+				"anonymoous"
+			]
+		},
+		"add_alias":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"remove_alias":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"set_dns_master_services":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"set_internal_dns_entry":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"set_external_dns_entry":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+		"add_node_center_model":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
