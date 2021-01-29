@@ -11,4 +11,4 @@ for i in range(len(list_a)):
 		total += (int(list_b[i]) - int(list_a[i])) * (256 ** i)
 	else:
 		total += int(list_b[i]) - int(list_a[i]) + 1
-print total
+print (total)
