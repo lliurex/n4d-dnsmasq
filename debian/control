@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 8.0.0), n4d-dev
 Standards-Version: 3.8.4
 
 Package: n4d-dnsmasq
-Depends: ${misc:Depends}, python3-jinja2, python-llxvars, dnsmasq, n4d-network, n4d-hostname
+Depends: ${misc:Depends}, python3-jinja2, dnsmasq, n4d-network, n4d-hostname
 Architecture: all
 Conflicts: 
 Description: LliureX dnsmasq server configuration
