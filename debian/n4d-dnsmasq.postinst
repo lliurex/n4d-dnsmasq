@@ -14,7 +14,7 @@ LLIUREX_FILE="/usr/share/n4d-dnsmasq/dnsmasq.service"
 case $1 in
         configure)
 
-		n4d-modules enable-plugin /etc/n4d/conf.d/DnsmasqManager || true
+		n4d-modules enable-plugin /etc/n4d/conf.d/DnsmasqManager.json || true
 
 		# Get the SRV_IP 
 		FILE_TO_WATCH="/etc/dnsmasq.conf"
