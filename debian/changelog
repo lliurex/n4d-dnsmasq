@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.80) focal; urgency=medium
+
+  * First focal release
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 11 Feb 2021 09:03:14 +0100
+
 n4d-dnsmasq (1.68.1) bionic; urgency=medium
 
   * fix dnszone
