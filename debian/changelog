@@ -1,3 +1,10 @@
+n4d-dnsmasq (1.81) focal; urgency=medium
+
+  * port to n4d > 0.900
+  * added library to help initialize dhcp ranges
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Fri, 12 Feb 2021 14:17:31 +0100
+
 n4d-dnsmasq (1.80) focal; urgency=medium
 
   * First focal release
