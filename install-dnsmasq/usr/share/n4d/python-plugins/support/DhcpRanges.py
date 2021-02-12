@@ -33,10 +33,6 @@ class DhcpRanges:
 		reservas=self.calc_reservas(total_hosts);
 		num_hosts=total_hosts-reservas;
 		# el primer host es el siguiente despues del valor de red mas las reservas, 
-		print(netbinary)
-		print(type(netbinary))
-		print(reservas)
-		print(type(reservas))
 		first_host=bin(int(netbinary,2)+1+reservas)[2:].zfill(32);
 
 		# calculo de direccion broadcast mediante un OR entre la direccion de red y la wildcard
