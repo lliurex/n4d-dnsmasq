@@ -8,9 +8,11 @@ import tempfile
 import shutil
 import os
 import subprocess
+import imp
 import n4d.responses
 import n4d.server.core as n4dCore
 from n4d.utils import n4d_mv
+dhcpranges=imp.load_source("DhcpRanges","/usr/share/n4d/python-plugins/support/DhcpRanges.py")
 
 MKDIR_ERROR=-10
 OPEN_TAR_ERROR=-20
@@ -77,13 +79,13 @@ class DnsmasqManager:
 		if not os.path.isdir(dir):
 			os.makedirs(dir)
 		return [True]
-                
+
 	#def get_time
 	def get_time(self):
 
 		return get_backup_name("Dnsmasq")
 
-        #def backup
+	#def backup
 	def backup(self,dir="/backup"):
 		try:
 			self.makedir(dir)
@@ -242,10 +244,10 @@ class DnsmasqManager:
 		self.n4dCore.set_variable('INTERNAL_DOMAIN',domain)
 		self.n4dCore.set_variable('MAIN_DOMAIN','lliurex')
 		result = self.set_internal_domain(domain)
-		if result['status']:
+		if result['status']!=0:
 			return n4d.responses.build_failed_call_response(CONFIGURE_INTERNAL_DOMAIN_ERROR)
 		result = self.load_exports()
-		if result['status']:
+		if result['status']!=0:
 			return n4d.responses.build_failed_call_response(CONFIGURE_LOAD_EXPORTS_ERROR)
 		return n4d.responses.build_successful_call_response()
 	#def  config_service
@@ -375,7 +377,7 @@ class DnsmasqManager:
 	'''
 	
 	def set_internal_domain(self,domain):
- #		list_variables = {}
+		#list_variables = {}
 		#Get HOSTNAME
 		#list_variables['HOSTNAME'] = objects['VariablesManager'].get_variable('HOSTNAME')
 		try:
@@ -426,9 +428,11 @@ class DnsmasqManager:
 				return n4d.responses.build_failed_call_response(UNDEFINED_VAR_ERROR)
 
 		if list_variables.get('INTERFACE_REPLICATION',None):
-			result = objects['NetworkManager'].get_replication_network()
-			if result['status']:
-				list_variables['REPLICATION_NETWORK'] = result['msg']
+			result = self.core.get_plugin('NetworkManager').get_replication_network()
+			if result['status']==0:
+				list_variables['REPLICATION_NETWORK'] = result['return']
+
+		dranges=dhcpranges.DhcpRanges()
 
 		query_variables = {
 			#'DHCP_ENABLE': {'ENABLE':'True'},
@@ -443,18 +447,17 @@ class DnsmasqManager:
 			'DHCP_LEASE_TIME': 12,
 			'DHCP_DENY_UNKNOWN_CLIENTS': 'no',
 			'DHCP_HOST_MAX': 80,
-			'DHCP_FIRST_IP': list_variables['INTERNAL_NETWORK'],
-			'DHCP_LAST_IP': list_variables['INTERNAL_NETWORK'],
+			'DHCP_FIRST_IP': dranges.init_dhcp_first({"NETWORK":list_variables["INTERNAL_NETWORK"],"MASK":list_variables["INTERNAL_MASK"]}),
+			'DHCP_LAST_IP': dranges.init_dhcp_last({"NETWORK":list_variables["INTERNAL_NETWORK"],"MASK":list_variables["INTERNAL_MASK"]}),
 			'DNS_HOSTNAME_PREFIX': 'llx-',
-			'DNS_UNREG_HOSTNAME_PREFIX':'host-'
+			'DNS_UNREG_HOSTNAME_PREFIX':'host-',
+			"SRV_ALIAS":["cups","www","ntp","share","srv","servidor","jclic-aula","lliurexlab","error","ipxboot","admin-center"]
 		}
 
 		for variable in query_variables:
-			#status,list_variables[variable] = objects['VariablesManager'].init_variable(variable, query_variables[variable])
 			self.n4dCore.set_variable(variable, query_variables[variable])
-		#status,list_variables['SRV_ALIAS'] = objects['VariablesManager'].init_variable('SRV_ALIAS')
-		self.n4dCore.set_variable('SRV_ALIAS',[])
-	
+		
+		list_variables.update(query_variables)
 	
 		for template_info in template_list:
 			with tempfile.NamedTemporaryFile('w',delete=False) as new_export_file:
