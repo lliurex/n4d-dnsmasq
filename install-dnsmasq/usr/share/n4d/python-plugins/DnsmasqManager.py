@@ -428,7 +428,7 @@ class DnsmasqManager:
 				return n4d.responses.build_failed_call_response(UNDEFINED_VAR_ERROR)
 
 		if list_variables.get('INTERFACE_REPLICATION',None):
-			result = self.core.get_plugin('NetworkManager').get_replication_network()
+			result = self.n4dCore.get_plugin('NetworkManager').get_replication_network()
 			if result['status']==0:
 				list_variables['REPLICATION_NETWORK'] = result['return']
 
