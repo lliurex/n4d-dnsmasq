@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.82) focal; urgency=medium
+
+  * Added auth_server key in dnsmasq.conf
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 16 Feb 2021 14:17:40 +0100
+
 n4d-dnsmasq (1.81.2) focal; urgency=medium
 
   * Fixed core call 
