@@ -121,6 +121,14 @@
 				"admins"
 			]
 		},
+		"get_host_from_ip":
+		{
+			"allowed_groups":[
+				"sudo",
+				"admins"
+			]
+		},
+
 		"add_node_center_model":
 		{
 			"allowed_groups":[
