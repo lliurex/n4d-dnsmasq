@@ -11,7 +11,8 @@ import subprocess
 import imp
 import n4d.responses
 import n4d.server.core as n4dCore
-from n4d.utils import n4d_mv
+from n4d.utils import n4d_mv, get_backup_name
+
 dhcpranges=imp.load_source("DhcpRanges","/usr/share/n4d/python-plugins/support/DhcpRanges.py")
 
 MKDIR_ERROR=-10
