@@ -11,7 +11,8 @@ import subprocess
 import imp
 import n4d.responses
 import n4d.server.core as n4dCore
-from n4d.utils import n4d_mv
+from n4d.utils import n4d_mv, get_backup_name
+
 dhcpranges=imp.load_source("DhcpRanges","/usr/share/n4d/python-plugins/support/DhcpRanges.py")
 
 MKDIR_ERROR=-10
@@ -33,6 +34,7 @@ UNREGISTERED_MAC_ERROR=-160
 UNKNOWN_IP_ERROR=-170
 NO_DHCP_INFO_ERROR=-180
 SLAVE_BLACKLIST_ERROR=-190
+NOT_FOUND_DNS_REGISTER=-200
 
 class DnsmasqManager:
 
@@ -667,6 +669,18 @@ class DnsmasqManager:
 		#return {'status':True,'result':'MAC '+ mac + ' has been registered with id ' + id }
 		return n4d.responses.build_successful_call_response("MAC %s has been registered with id %s"%(mac,id))
 	#def register_machine
+
+        def get_host_from_ip(self, ip):
+            import re
+            with open(self.dnsfile,'r', encoding='utf-8') as fd:
+                hosts = fd.readlines()
+            for x in hosts:
+                matching = re.match("{ip}\s+(.+)".format(ip), x)
+                if matching is not None:
+                    return n4d.responses.build_successful_call_response(matching.group(1))
+            return n4d.responses.build_failed_call_response(DnsmasqManager.NOT_FOUND_DNS_REGISTER)
+            
+        #def get_host_from_ip
 	
 	'''
 	Internal method
@@ -742,7 +756,6 @@ class DnsmasqManager:
 		except:
 			return None	
 
-	
 
 
 #class Dnsmasq
