@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.83.1) focal; urgency=medium
+
+  * Fixed wrong identation
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Thu, 27 May 2021 14:16:08 +0200
+
 n4d-dnsmasq (1.83) focal; urgency=medium
 
   * get_backup_name
