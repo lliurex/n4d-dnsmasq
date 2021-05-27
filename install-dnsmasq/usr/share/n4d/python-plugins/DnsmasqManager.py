@@ -8,6 +8,7 @@ import tempfile
 import shutil
 import os
 import subprocess
+import re
 import imp
 import n4d.responses
 import n4d.server.core as n4dCore
@@ -669,18 +670,20 @@ class DnsmasqManager:
 		#return {'status':True,'result':'MAC '+ mac + ' has been registered with id ' + id }
 		return n4d.responses.build_successful_call_response("MAC %s has been registered with id %s"%(mac,id))
 	#def register_machine
+	
 
-        def get_host_from_ip(self, ip):
-            import re
-            with open(self.dnsfile,'r', encoding='utf-8') as fd:
-                hosts = fd.readlines()
-            for x in hosts:
-                matching = re.match("{ip}\s+(.+)".format(ip), x)
-                if matching is not None:
-                    return n4d.responses.build_successful_call_response(matching.group(1))
-            return n4d.responses.build_failed_call_response(DnsmasqManager.NOT_FOUND_DNS_REGISTER)
-            
-        #def get_host_from_ip
+	def get_host_from_ip(self, ip):
+		import re
+		with open(self.dnsfile,'r', encoding='utf-8') as fd:
+			hosts = fd.readlines()
+		for x in hosts:
+			matching = re.match("{ip}\s+(.+)".format(ip), x)
+			if matching is not None:
+				return n4d.responses.build_successful_call_response(matching.group(1))
+		return n4d.responses.build_failed_call_response(DnsmasqManager.NOT_FOUND_DNS_REGISTER)
+
+	#def get_host_from_ip
+
 	
 	'''
 	Internal method
