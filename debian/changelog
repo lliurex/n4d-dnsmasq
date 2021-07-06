@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.84) focal; urgency=medium
+
+  * Fixed missing tarfile import
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Tue, 06 Jul 2021 13:49:25 +0200
+
 n4d-dnsmasq (1.83.1) focal; urgency=medium
 
   * Fixed wrong identation
