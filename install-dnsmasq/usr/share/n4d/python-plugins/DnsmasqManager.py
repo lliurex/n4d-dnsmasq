@@ -9,6 +9,7 @@ import shutil
 import os
 import subprocess
 import re
+import tarfile
 import imp
 import n4d.responses
 import n4d.server.core as n4dCore
