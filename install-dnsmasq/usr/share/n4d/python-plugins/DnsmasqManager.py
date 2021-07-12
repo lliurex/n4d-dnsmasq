@@ -37,6 +37,8 @@ UNKNOWN_IP_ERROR=-170
 NO_DHCP_INFO_ERROR=-180
 SLAVE_BLACKLIST_ERROR=-190
 NOT_FOUND_DNS_REGISTER=-200
+UNREGISTERED_MAC_ERROR=-300
+UNKNOWN_NAME_ERROR=-400
 
 class DnsmasqManager:
 
@@ -198,8 +200,21 @@ class DnsmasqManager:
 			os.remove(cnameFile)
 
 	def has_name(self,mac):
-		return n4d.responses.build_successful_call_response()
-		pass
+		
+		try:
+			registerfile = open(self.pathfile,'r')
+			lines=registerfile.readlines()
+			registerfile.close()
+			for line in lines:
+				if mac in line:
+					#new_content.append("dhcp-host=" + mac + "," + new_ip + ","+ new_hostname +"\n")
+					tmp=line.split("dhcp-host=")[1]
+					mac,ip,hostname=tmp.split[","]
+				return n4d.responses.build_successful_call_response(hostname.strip())
+				
+			return n4d.responses.build_failed_call_response(UNREGISTERED_MAC_ERROR,"MAC not registered")
+		except Exception as e:
+			return n4d.responses.build_failed_call_response(UNKNOWN_NAME_ERROR,str(e))
 	#def has_name
 
 	def add_node_center_model(self, hostname, ip ):
