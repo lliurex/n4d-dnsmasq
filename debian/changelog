@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.85) focal; urgency=medium
+
+  * Fixed has_name function to get dns registry
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 12 Jul 2021 13:20:43 +0200
+
 n4d-dnsmasq (1.84) focal; urgency=medium
 
   * Fixed missing tarfile import
