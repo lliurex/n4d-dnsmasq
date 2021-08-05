@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.85.1) focal; urgency=medium
+
+  * Fix typo
+
+ -- Raul Rodrigo Segura <raurodse@gmail.com>  Thu, 05 Aug 2021 12:19:52 +0200
+
 n4d-dnsmasq (1.85) focal; urgency=medium
 
   * Fixed has_name function to get dns registry
