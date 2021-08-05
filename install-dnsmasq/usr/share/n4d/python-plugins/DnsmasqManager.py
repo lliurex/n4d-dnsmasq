@@ -220,7 +220,7 @@ class DnsmasqManager:
 	def add_node_center_model(self, hostname, ip ):
 
 		#internal_domain = objects['VariablesManager'].get_variable('INTERNAL_DOMAIN')
-		internal_domain = self.n4dCore.get_variable('INTERNAL_DOMAIN').get('result','')
+		internal_domain = self.n4dCore.get_variable('INTERNAL_DOMAIN').get('return','')
 		content = []
 		if os.path.exists(self.path_nodes_center_model):
 			with open(self.path_nodes_center_model, 'r') as fd:
