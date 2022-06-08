@@ -1,4 +1,4 @@
-n4d-dnsmasq (1.85.3) focal; urgency=medium
+n4d-dnsmasq (1.85.4) focal; urgency=medium
 
   * Added lliurex-dns-fixer to change 
 
