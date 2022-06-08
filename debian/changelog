@@ -1,4 +1,4 @@
-n4d-dnsmasq (1.68.3) bionic; urgency=medium
+n4d-dnsmasq (1.68.4) bionic; urgency=medium
 
   * Adding lliurex-dns-fixer to change old dns to newer ones
 
