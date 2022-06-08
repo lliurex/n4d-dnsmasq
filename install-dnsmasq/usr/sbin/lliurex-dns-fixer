@@ -19,7 +19,6 @@ class DnsFixer:
 			self.pprint("Old DNSs detected")
 			self.create_backup()
 			new_lines=self.prepare_new_content()
-			self.pprint(new_lines)
 			self.write_new_file(new_lines)
 			self.restart_dnsmasq()
 			self.pprint("Done")
