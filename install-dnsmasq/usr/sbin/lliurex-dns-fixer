@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+
+import os
+import shutil
+import sys
+
+class DnsFixer:
+	
+	DEBUG=True
+	
+	def __init__(self):
+		
+		self.dns_file="/var/lib/dnsmasq/config/extra-dns"
+		self.backup_dir="/var/backups/"
+		self.old_dns=["172.27.111.5","172.27.111.6"]
+		self.new_dns=["10.239.3.7","10.239.3.8"]
+		
+		if self.check_dns_file():
+			self.pprint("Old DNSs detected")
+			self.create_backup()
+			new_lines=self.prepare_new_content()
+			self.pprint(new_lines)
+			self.write_new_file(new_lines)
+			self.pprint("Done")
+		else:
+			self.pprint("Nothing to do. Exiting ...")
+			
+		
+	#def init
+	
+	def pprint(self,data):
+		
+		if DnsFixer.DEBUG:
+			print("[DnsFixer] %s"%str(data))
+			
+	#def pprint
+	
+	def read_dns_file(self):
+		
+		f=open(self.dns_file)
+		dns_lines=f.readlines()
+		f.close()
+		
+		return dns_lines
+		
+	#def read_dns_file
+	
+	def check_dns_file(self):
+		
+		self.pprint("Checking '%s' ..."%self.dns_file)
+		if not os.path.exists(self.dns_file):
+			return False
+			
+		self.dns_lines=self.read_dns_file()
+		
+		for line in self.dns_lines:
+			for dns in self.old_dns:
+				if dns in line:
+					return True
+					
+		return False
+		
+	#def check_dns_file
+	
+	def prepare_new_content(self):
+		
+		new_lines=[]
+		for line in self.dns_lines:
+			line=line.replace(self.old_dns[0],self.new_dns[0])
+			line=line.replace(self.old_dns[1],self.new_dns[1])
+			new_lines.append(line)
+			
+		return new_lines
+		
+	#def prepare_new_content
+	
+	def create_backup(self):
+		
+		self.pprint("Creating backup file...")
+		if not os.path.exists(self.backup_dir):
+			os.makedirs(self.backup_dir)
+		shutil.copy(self.dns_file,self.backup_dir+"extra-dns.old")
+		self.pprint("\t"+self.backup_dir+"extra-dns.old")
+		
+	#def create_backup
+	
+	def write_new_file(self,new_lines):
+		
+		file_name=self.dns_file
+				
+		self.pprint("Writing new config file...")
+		self.pprint("\t%s"%file_name)
+		f=open(file_name,"w")
+		
+		for line in new_lines:
+			f.write(line)
+		f.close()
+		
+		
+	#def write_new_file
+	
+#class DnsFixer
+
+
+if __name__=="__main__":
+	
+	df=DnsFixer()
