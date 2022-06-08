@@ -21,6 +21,7 @@ class DnsFixer:
 			new_lines=self.prepare_new_content()
 			self.pprint(new_lines)
 			self.write_new_file(new_lines)
+			self.restart_dnsmasq()
 			self.pprint("Done")
 		else:
 			self.pprint("Nothing to do. Exiting ...")
@@ -98,6 +99,13 @@ class DnsFixer:
 		
 		
 	#def write_new_file
+	
+	def restart_dnsmasq(self):
+		
+		self.pprint("Restarting dnsmasq...")
+		os.system("systemctl restart dnsmasq")
+		
+	#def restart_dnsmasq
 	
 #class DnsFixer
 
