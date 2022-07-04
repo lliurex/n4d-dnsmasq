@@ -102,7 +102,7 @@ class DnsFixer:
 	def restart_dnsmasq(self):
 		
 		self.pprint("Restarting dnsmasq...")
-		os.system("systemctl restart dnsmasq")
+		os.system("systemctl restart dnsmasq || true")
 		
 	#def restart_dnsmasq
 	
