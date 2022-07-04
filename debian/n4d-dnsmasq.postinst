@@ -31,7 +31,8 @@ case $1 in
 		fi
 
 	        if dpkg --compare-versions "$2" lt 1.86; then
-
+			echo "Newer MacroLAN DNSs are available. Executing DNS Changeer..."
+			lliurex-dns-fixer || true
 	        fi
 
                ;;

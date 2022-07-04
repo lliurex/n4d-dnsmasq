@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.86) focal; urgency=medium
+
+  * Calling lliurex-dns-fixer in postinst
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 04 Jul 2022 08:33:37 +0200
+
 n4d-dnsmasq (1.85.5) focal; urgency=medium
 
   * Dummy upgrade
