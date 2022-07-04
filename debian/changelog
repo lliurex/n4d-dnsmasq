@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.69) bionic; urgency=medium
+
+  * adding lliurex-dns-fixer call to postinst
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Mon, 04 Jul 2022 08:36:11 +0200
+
 n4d-dnsmasq (1.68.4) bionic; urgency=medium
 
   * Adding lliurex-dns-fixer to change old dns to newer ones
