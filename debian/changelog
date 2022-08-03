@@ -1,4 +1,4 @@
-n4d-dnsmasq (1.87) focal; urgency=medium
+n4d-dnsmasq (1.88) focal; urgency=medium
 
   * Adding resolv-file configuration to dnsmasq to avoid CPU usage when there
     is no eth link.
