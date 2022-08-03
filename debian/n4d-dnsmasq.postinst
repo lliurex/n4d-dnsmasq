@@ -35,6 +35,25 @@ case $1 in
 			lliurex-dns-fixer || true
 	        fi
 
+                if dpkg --compare-versions "$2" lt 1.87; then
+
+			if grep -Fq "address=/preseed/mirror" $FILE_TO_WATCH
+			then
+				if ! grep -Fq "resolv-file=" $FILE_TO_WATCH
+				then
+					if [ -e "/var/lib/dnsmasq/config/extra-dns" ]; then
+						sed -i '/^address=.*/a resolv-file=/var/lib/dnsmasq/config/extra-dns' $FILE_TO_WATCH
+    					fi
+				fi	
+
+			fi
+
+
+
+                fi
+
+
+
                ;;
         *)
                 echo "[DEBUG] Unknow action ..."

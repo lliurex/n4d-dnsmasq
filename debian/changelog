@@ -1,3 +1,10 @@
+n4d-dnsmasq (1.87) focal; urgency=medium
+
+  * Adding resolv-file configuration to dnsmasq to avoid CPU usage when there
+    is no eth link.
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 03 Aug 2022 11:53:18 +0200
+
 n4d-dnsmasq (1.86) focal; urgency=medium
 
   * Calling lliurex-dns-fixer in postinst
