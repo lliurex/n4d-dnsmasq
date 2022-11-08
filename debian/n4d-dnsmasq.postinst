@@ -30,7 +30,10 @@ case $1 in
 		      sed -i "s/address=\/preseed\/mirror\/proxy\/$SRV_IP/address=\/preseed\/mirror\/proxy\/server\/$SRV_IP/g" $FILE_TO_WATCH
 		fi
 
-
+	        if dpkg --compare-versions "$2" lt 1.69.1; then
+			echo "Newer MacroLAN DNSs are available. Executing DNS Changeer..."
+			lliurex-dns-fixer || true
+	        fi
                ;;
         *)
                 echo "[DEBUG] Unknow action ..."
