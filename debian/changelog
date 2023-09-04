@@ -1,3 +1,9 @@
+n4d-dnsmasq (1.98.1) jammy; urgency=medium
+
+  * Initial release for Jammy
+
+ -- Juan Ramon Pelegrina <juapesi@hotmail.com>  Mon, 04 Sep 2023 12:26:23 +0200
+
 n4d-dnsmasq (1.88.1) focal; urgency=medium
 
   * Fix resolv-fle by resolv-file
