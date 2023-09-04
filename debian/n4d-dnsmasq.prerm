@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+# Template for diversions
+
+PACKAGE_NAME="n4d-dnsmasq"
+ORIGINAL_FILE="/lib/systemd/system/dnsmasq.service"
+DIVERT_FILE="$ORIGINAL_FILE.divert"
+LLIUREX_FILE="/usr/share/n4d-dnsmasq/dnsmasq.service"
+
+
+
+case $1 in
+        remove|purge|abort-install|disappear)
+
+                ;;
+        *)
+                echo "Nothing to do"
+                ;;
+esac
+
+#DEBHELPER#
+
+exit 0
+
